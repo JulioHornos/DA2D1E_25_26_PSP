@@ -9,15 +9,19 @@ import java.util.Random;
 public class MainProcessEjemplo1 {
 
     private static final Random RANDOM = new Random();
+    // Comando para procesos hijos. En forma de array para que sea más fácil crear el ProcessBuilder.
+    private static final String[] CHILDREN_COMMAND = 
+			{"java", // ejecutamos un programa java 
+			 "-cp",  // indicamos que le vamos a indicar la ruta de las clases
+			 "../SincronizacionCompetitivosHIjos/bin", 
+			 // Ruta relativa de la clase del programa llamado desde la ubicación del llamante 
+			 //(la carpeta de proyecto del llamante 
+			"ejemplosHijos.ChildProcessEjemplo1"};
 
     public static void main(String[] args) throws IOException {
 
         // Crear un processBuilder para poder lanzar varias veces el mismo proceso (varios hijos)
-        ProcessBuilder childrenProcessBuilder = new ProcessBuilder("java","ejemplosHijos.ChildProcessEjemplo1");
-
-        File directorio = new File("C:\\Julio\\Modulos\\PSP\\PSP_CURSO\\PSP_CURSO\\UT2\\SincronizacionCompetitivos\\SincronizacionCompetitivosHIjos\\bin");
-        //se establece el directorio donde se encuentra el ejecutable
-        childrenProcessBuilder.directory(directorio);              
+        ProcessBuilder childrenProcessBuilder = new ProcessBuilder(CHILDREN_COMMAND);
         
         // Lista de procesos para poder lanzar un número determinado de procesos
         List<Process> processes = new ArrayList<>();
