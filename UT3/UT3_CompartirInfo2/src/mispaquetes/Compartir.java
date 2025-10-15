@@ -11,11 +11,11 @@ final class Contador2 {
 		this.c = c;
 	}
 
-	public void incrementa() {
+	public synchronized void incrementa() {
 		c++;
 	}
 
-	public void decrementa() {
+	public synchronized void decrementa() {
 		c--;
 	}
 
@@ -36,13 +36,13 @@ class HiloA2 extends Thread {
 	public void run() {
 		
 			for (int j = 0; j < 300; j++) {
-				synchronized (contador) {
+			 
 				contador.incrementa();}
 				try {
 					sleep(10);
 				} catch (InterruptedException e) {		}
 				
-			}
+			
 			System.out.println(getName() + " contador vale "
 					+ contador.getValor());
 		}
@@ -61,13 +61,13 @@ class HiloB2 extends Thread {
 	public void run() {
 		
 			for (int j = 0; j < 300; j++) {
-				synchronized (contador) {
+				
 				contador.decrementa();}
 				try {
 					sleep(10);
 				} catch (InterruptedException e) {		}
 				
-			}
+			
 			System.out.println(getName() + " contador vale "
 					+ contador.getValor());
 		}

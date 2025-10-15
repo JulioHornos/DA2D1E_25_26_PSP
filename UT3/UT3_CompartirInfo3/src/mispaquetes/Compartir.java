@@ -6,20 +6,35 @@ import java.util.concurrent.Executors;
 
 class Contador {
 	private int c = 0;
+	private int a = 0;
 	Contador(int c) {
 		this.c = c;
+		this.a = c;
 	}
 
-	public synchronized void incrementa() {
-		c++;
+	public  void incrementa() {
+			a++;
+			synchronized(this) {
+				c++;
+			}	
+		
 	}
 
-	public synchronized void decrementa() {
-		c--;
+	public  void decrementa() {
+			a--;
+		synchronized(this) {
+			c--;
+		}
+				
+	
 	}
 
 	public synchronized int getValor() {
 		return c;
+	}
+	
+	public synchronized int getValorA() {
+		return a;
 	}
 
 }// CONTADOR
@@ -38,6 +53,7 @@ class HiloA extends Thread {
 			 
 		}
 		System.out.println(getName() + " contador vale " + contador.getValor());
+		System.out.println(getName() + " contador vale A " + contador.getValorA());
 	}
 }// FIN HILOA
 
@@ -55,6 +71,7 @@ class HiloB extends Thread {
 			 
 		}
 		System.out.println(getName() + " contador vale " + contador.getValor());
+		System.out.println(getName() + " contador vale A " + contador.getValorA());
 	}
 }// FIN HILOB
 
